@@ -13,7 +13,6 @@ int i = 0;
 CRGB leds[NUM_LEDS];
 
 void strip_blink(int NUM_LED) {
-
     for (int i = 0; i < NUM_LED; i++){
         leds[i] = CRGB(255,0,0);
         // leds[i-1] = CRGB::Red;
@@ -25,6 +24,23 @@ void strip_blink(int NUM_LED) {
         // leds[i-1] = CRGB::Black;
         FastLED.show();
         Serial.println("Test");
+    }
+}
+
+void strip_blink_const_speed(){
+    leds[i] = CRGB::Blue;
+    leds[i-1] = CRGB::MediumBlue;
+    leds[i+1] = CRGB::MediumBlue;
+    FastLED.show();
+    delay(150);
+    leds[i] = CRGB::Black;
+    leds[i+1] = CRGB::Black;
+    leds[i-1] = CRGB::Black;
+    FastLED.show();
+    i++;
+
+    if (i == (NUM_LEDS - 1)){
+        i = 0;
     }
 }
 

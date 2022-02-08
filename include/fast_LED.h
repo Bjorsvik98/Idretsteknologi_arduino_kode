@@ -4,7 +4,8 @@
 
 
 /**
- * @brief Run strip with constatn time
+ * @brief Run strip with constatn time and in a for loop, need input. It is a new func that dont need it. Try use strip_blink_constatn_speed instead.
+ * 
  * 
  * @param NUM_LED 
  */
@@ -21,6 +22,12 @@ void fast_LED_init(void);
  * 
  */
 void run_strip(void);
+
+/**
+ * @brief blink led strip with constant speed and one run per run in main
+ * 
+ */
+void strip_blink_const_speed();
 
 
 
