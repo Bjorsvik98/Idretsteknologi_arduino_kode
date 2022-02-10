@@ -1,0 +1,18 @@
+def get_nearest_location(self, location: mod_geo.Location) -> Optional[NearestLocationData]:
+        """ Return the (location, track_point_no) on this track segment """
+        return min((NearestLocationData(pt, -1, -1, pt_no) for (pt, pt_no) in self.walk())
+                   ,key=lambda x: x.location.distance_2d(location) if x is not None else float('INF')
+                   ,default=None)
+
+
+def get_nearest_locations(self, location: mod_geo.Location, threshold_distance: float=0.01) -> List[NearestLocationData]:
+        """
+        Returns a list of locations of elements like
+        consisting of points where the location may be on the track
+
+        threshold_distance is the minimum distance from the track
+        so that the point *may* be counted as to be "on the track".
+        For example 0.01 means 1% of the track distance.
+        """
+
+        

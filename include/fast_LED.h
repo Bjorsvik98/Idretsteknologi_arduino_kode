@@ -30,6 +30,11 @@ void run_strip(void);
 void strip_blink_const_speed();
 
 
+void run_one_light(int number, CRGB color);
+
+void clead_one_light(int number);
+
+
 
 
 #endif

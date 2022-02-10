@@ -6,6 +6,7 @@
 #define NUM_LEDS 20
 #define DATA_PIN 6
 #define LED_pin 13
+#define BRIGHTNES 25
 
 bool interupt_flag = false;
 int i = 0;
@@ -27,10 +28,20 @@ void strip_blink(int NUM_LED) {
     }
 }
 
+void run_one_light(int number, CRGB color){
+    leds[number] = color;
+    FastLED.show();
+}
+void clead_one_light(int number){
+    leds[number] = CRGB::Black;
+    FastLED.show();
+}
+
+
 void strip_blink_const_speed(){
-    leds[i] = CRGB::Blue;
-    leds[i-1] = CRGB::MediumBlue;
-    leds[i+1] = CRGB::MediumBlue;
+    leds[i] = CRGB::Purple;
+    leds[i-1] = CRGB::Blue;
+    leds[i+1] = CRGB::Red;
     FastLED.show();
     delay(150);
     leds[i] = CRGB::Black;
@@ -46,7 +57,7 @@ void strip_blink_const_speed(){
 
 void fast_LED_init(void){
     FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
-    FastLED.setBrightness(20);
+    FastLED.setBrightness(BRIGHTNES);
     FastLED.setMaxPowerInVoltsAndMilliamps(5, 500);
 }
 
