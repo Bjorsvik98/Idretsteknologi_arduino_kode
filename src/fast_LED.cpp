@@ -32,7 +32,7 @@ void run_one_light(int number, CRGB color){
     leds[number] = color;
     FastLED.show();
 }
-void clead_one_light(int number){
+void clear_one_light(int number){
     leds[number] = CRGB::Black;
     FastLED.show();
 }

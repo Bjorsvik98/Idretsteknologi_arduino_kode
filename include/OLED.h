@@ -3,5 +3,7 @@
 
 void OLED_init();
 
+void OLED_disp_time(long input_time);
+
 
 #endif  

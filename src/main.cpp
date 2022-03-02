@@ -64,14 +64,7 @@ void blink_LED(int LED_pin1, int Buzzer_pin, int duration){
 }
 
 void loop() {
-  // while (true){
-  // run_one_light(16, CRGB::White);
-  // run_one_light(17, CRGB::White);
-  // run_one_light(18, CRGB::White);
-  // run_one_light(19, CRGB::White);
-
-  // }
-
+  
 
   j = 0;
   if (true){
@@ -113,17 +106,12 @@ void loop() {
 
     
     while(j < NUM_LEDS){
-          
       if (millis() > (time1 + array2[k])){
-        time1 = millis();
-        
-        
-        clead_one_light(j-1);
+        time1 = millis();        
+        clear_one_light(j-1);
         run_one_light(j, CRGB::Green);
         j++;
         k++;
-        
-
       }
       int size = sizeof(array2) / sizeof(int);
       if (k == size){
@@ -132,27 +120,19 @@ void loop() {
      
       
     }
-    clead_one_light(NUM_LEDS-1);
-      while (digitalRead(button2) == false){
 
-      }
-      Serial.println(millis() - timeStart);
-      // display.clearDisplay();
-      // display.setTextSize(2);          // text size
-      // display.setCursor(0, 0);
+    clear_one_light(NUM_LEDS-1);
+    while (digitalRead(button2) == false){  }
+    Serial.print(millis() - timeStart);
+    Serial.println("ms");
+    OLED_disp_time(timeStart);
+    
+    tone(buzzer, 2000);
+    timeStart = millis();
+    while ((millis()-timeStart < 1000)){
 
-
-      // display.print((millis() - timeStart)/1000.0,2);
-      // display.print(" sek");
-      
-      // display.display();
-      
-      tone(buzzer, 2000);
-      timeStart = millis();
-      while ((millis()-timeStart < 1000)){
-
-      }
-      noTone(buzzer);
+    }
+    noTone(buzzer);
 
     }
     
