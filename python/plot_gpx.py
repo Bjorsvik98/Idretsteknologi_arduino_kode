@@ -9,7 +9,6 @@ import haversine_distance as hav
 plt.rcParams['axes.spines.top'] = False
 plt.rcParams['axes.spines.right'] = False
 
-# with open('Sigurd_i_granasen_1.gpx', 'r') as gpx_file:
 with open('Sigurd_i_granasen_1.gpx', 'r') as gpx_file:
     gpx = gpxpy.parse(gpx_file)
 
@@ -45,7 +44,7 @@ route_df['elevation_diff'] = route_df['elevation'].diff()
 route_df['distance_diff'] = distances
 route_df[route_df['elevation_diff'] >= 0]['elevation_diff'].sum()
 
-# todo skrå distanse
+
 
 route_df = route_df.fillna(0)
 
@@ -99,7 +98,7 @@ for i in range(len(output)-1):
 
 
 
-# print(output)
+print(output)
 
 # plt.figure(figsize=(14, 8))
 # plt.plot(output['longitude'], output['latitude'], color='#101010')
