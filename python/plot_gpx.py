@@ -45,6 +45,8 @@ route_df['elevation_diff'] = route_df['elevation'].diff()
 route_df['distance_diff'] = distances
 route_df[route_df['elevation_diff'] >= 0]['elevation_diff'].sum()
 
+# todo skrå distanse
+
 route_df = route_df.fillna(0)
 
 route_df.to_csv('Sigurd_i_granasen_1.csv', index=True)
@@ -62,7 +64,7 @@ temp = pd.DataFrame(columns=route_df.columns)
 
 # cond = route_df['longitude'] < 1
 
-
+# todo: generalisere løypesegment
 
 for i in range(len(route_df)):
     if (route_df['longitude'][i] < 10.31000) and (route_df['longitude'][i] > 10.30960):
@@ -83,6 +85,8 @@ x = route_df['time'][2] -route_df['time'][1]
 output_array = pd.DataFrame(columns=temp.columns)
 
 # print(x)
+
+# todo: sortere ut segmentene, ta hensyn til feil og usikkerhet
 last_saved = 0
 for i in range(len(output)-1):
     if ((output['time'][i+1] - output['time'][i]) != route_df['time'][2] -route_df['time'][1]):
