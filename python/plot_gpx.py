@@ -88,7 +88,7 @@ for i in range(len(output)-1):
     if ((output['time'][i+1] - output['time'][i]) != route_df['time'][2] -route_df['time'][1]):
         rows = output.loc[last_saved+1:i, :]
         
-        # print(output.loc[last_saved+1:i, :])
+        print(output.loc[last_saved+1:i, :])
         last_saved = i
 
 
