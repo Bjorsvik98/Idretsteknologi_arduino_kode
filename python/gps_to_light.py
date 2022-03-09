@@ -5,16 +5,23 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import haversine as hs
 import haversine_distance as hav
-import gps_functions
+import gps_functions as gps 
 
-def gps_to_light(name):
+def gps_to_light(filename, start_coords, length):
+
+    # Open GPS-file and formatting as dataframe:
+    route_df = gps.df_format(filename)
     
-    # Opening GPS file:
-    with open(name, 'r') as gpx_file:
-        gpx = gpxpy.parse(gpx_file)
-    
-    # Formatting for dataframe:
-    route_df = df_format(gpx)
+    # Find right segment of the track:
+    segment = gps.df_segment(route_df, start_coords, length)
     
     # Distances (in meter) between each sample:
-    calcul
+    distances = gps.calculate_distances(segment)
+    
+    # Calculate light sequence based on distance:
+    
+    
+    
+    
+    
+    
