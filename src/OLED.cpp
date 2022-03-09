@@ -26,7 +26,6 @@ void OLED_disp_time(long input_time) {
     display.clearDisplay();
     display.setTextSize(2);          // text size
     display.setCursor(0, 0);
-    Serial.println("Test");
     display.print((millis() - input_time)/1000.0,2);
     display.print(" sek");
     display.display();

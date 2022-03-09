@@ -4,7 +4,11 @@ import matplotlib.pyplot as plt
 import haversine as hs
 import haversine_distance as hav
 
-def df_format(file):
+def df_format(String):
+
+    with open(String, 'r') as gpx_file:
+    gpx = gpxpy.parse(gpx_file)
+
     route_info = []
     for track in file.tracks:
         for segment in track.segments:

@@ -45,7 +45,6 @@ route_df['distance_diff'] = distances
 route_df[route_df['elevation_diff'] >= 0]['elevation_diff'].sum()
 
 
-
 route_df = route_df.fillna(0)
 
 route_df.to_csv('Sigurd_i_granasen_1.csv', index=True)

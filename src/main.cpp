@@ -22,13 +22,15 @@
 #define button2 4
 #define buzzer 9
 
+#define NUM_BLINK_TIMES 5
+
 
 
 unsigned long StartTime = 0;
+unsigned long loopTime = 0;
 unsigned long time2 = 0;
 unsigned long time1 = 0;
 unsigned long timeStart = 0;
-// const int buzzer = 9; //buzzer to arduino pin 9
 Button button3(4);
 
 
@@ -73,35 +75,53 @@ void loop() {
     time1 = millis();
     
     if (digitalRead(button1)){
-      time2 = millis();
-
-      while(millis()-time2 < 4500){
-        if (millis()-time2 < 500){
-          digitalWrite(LED_pin, HIGH);
-          tone(buzzer, 700);
-        } else if (millis()-time2 < 1000) {
-          digitalWrite(LED_pin, LOW);
-          noTone(buzzer);
-        } else if (millis()-time2 < 1500){
-          digitalWrite(LED_pin, HIGH);
-          tone(buzzer, 700);
-        } else if (millis()-time2 < 2000) {
-          digitalWrite(LED_pin, LOW);
-          noTone(buzzer);
-        } else if (millis()-time2 < 2500){
-          digitalWrite(LED_pin, HIGH);
-          tone(buzzer, 700);
-        } else if (millis()-time2 < 3000) {
-          digitalWrite(LED_pin, LOW);
-          noTone(buzzer);
-        } else if (millis()-time2 < 3500){
-          digitalWrite(LED_pin, HIGH);
-          tone(buzzer, 2000);
-        } else if (millis()-time2 < 4400) {
-          digitalWrite(LED_pin, LOW);
-          noTone(buzzer);
+        time2 = millis();
+        int runNumbers = 0;
+        
+        while(runNumbers < NUM_BLINK_TIMES*2){
+            if (millis()-loopTime > 500){
+                loopTime = millis();
+                digitalWrite(LED_pin, !digitalRead(LED_pin));
+                if (runNumbers % 2 == 0){
+                    tone(buzzer, 700);
+                } else if(runNumbers == NUM_BLINK_TIMES-1) {
+                    tone(buzzer, 2000);
+                    loopTime = loopTime - 200;
+                }
+                } else  {
+                    noTone(buzzer);
+                }
+                
+                runNumbers++;
+            }
         }
-      }
+    //   while(millis()-time2 < 4500){
+    //     if (millis()-time2 < 500){
+    //       digitalWrite(LED_pin, HIGH);
+    //       tone(buzzer, 700);
+    //     } else if (millis()-time2 < 1000) {
+    //       digitalWrite(LED_pin, LOW);
+          
+    //     } else if (millis()-time2 < 1500){
+    //       digitalWrite(LED_pin, HIGH);
+    //       tone(buzzer, 700);
+    //     } else if (millis()-time2 < 2000) {
+    //       digitalWrite(LED_pin, LOW);
+    //       noTone(buzzer);
+    //     } else if (millis()-time2 < 2500){
+    //       digitalWrite(LED_pin, HIGH);
+    //       tone(buzzer, 700);
+    //     } else if (millis()-time2 < 3000) {
+    //       digitalWrite(LED_pin, LOW);
+    //       noTone(buzzer);
+    //     } else if (millis()-time2 < 3500){
+    //       digitalWrite(LED_pin, HIGH);
+    //       tone(buzzer, 2000);
+    //     } else if (millis()-time2 < 4400) {
+    //       digitalWrite(LED_pin, LOW);
+    //       noTone(buzzer);
+    //     }
+    //   }
       timeStart = millis();
 
     
@@ -136,7 +156,7 @@ void loop() {
 
     }
     
-  }
+  
   
 
   
