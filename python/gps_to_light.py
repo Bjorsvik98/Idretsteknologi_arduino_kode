@@ -7,16 +7,19 @@ import haversine as hs
 import haversine_distance as hav
 import gps_functions as gps 
 
-def gps_to_light(filename, start_coords, length):
+def gps_to_light(filename, specification):
 
     # Open GPS-file and formatting as dataframe:
     route_df = gps.df_format(filename)
     
     # Find right segment of the track:
-    segment = gps.df_segment(route_df, start_coords, length)
+    segment = gps.df_segment(route_df)
+    
+    # Get fastest/slowest/average "lap time":
+    lap = gps.get_lap(segment)
     
     # Distances (in meter) between each sample:
-    distances = gps.calculate_distances(segment)
+    distances = gps.calculate_distances(lap, specification)
     
     # Calculate light sequence based on distance:
     
