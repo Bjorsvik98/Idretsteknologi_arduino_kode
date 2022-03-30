@@ -16,13 +16,13 @@
 // #include <pgmspace.h>
 
 
-#define NUM_LEDS 20
+#define NUM_LEDS 120
 #define LED_pin 3
-#define button1 2
-#define button2 4
+#define button1 4
+#define button2 2
 #define buzzer 9
 
-#define NUM_BLINK_TIMES 5
+#define NUM_BLINK_TIMES 3
 
 
 
@@ -34,7 +34,8 @@ unsigned long timeStart = 0;
 Button button3(4);
 
 
-int array2[] = {50, 50, 50, 50, 50, 50, 200, 200, 200, 200, 50, 50, 50, 50, 50, 50, 200, 200, 200, 200};
+// int array2[] = {50, 50, 50, 50, 50, 50, 200, 200, 200, 200, 50, 50, 50, 50, 50, 50, 200, 200, 200, 200};
+int array2[] = {75,75};
 int j = 0; 
 // int long_array[] = {32, 33, 35, 33, 33, 31, 31, 33, 34, 31, 31, 29, 31, 32, 34, 33, 32, 28, 38, 37, 40, 38, 34, 32, 30, 30, 34, 25, 24, 21, 24, 25, 27, 31, 29, 28, 30, 32, 35, 32, 30, 33, 31, 34, 33, 35, 35, 31, 34, 32, 30, 28, 30, 30, 27, 28, 33, 33, 31, 30, 33, 35, 33, 33, 35, 34, 36, 36, 34, 32, 29, 30, 32, 31, 28, 31, 31, 33, 36, 36, 35, 35, 34, 34, 34, 33, 32, 31, 32, 33, 33, 32, 31, 32, 32, 33, 32, 33, 32, 33, 33, 33, 31, 30, 31, 32, 31, 28, 27, 25, 28, 31, 33, 29, 30, 30, 32, 33, 33, 33, 32, 31, 31, 32, 33, 34, 34, 34, 36, 34, 33, 35, 36, 37, 37, 35, 31, 30, 28, 26, 26, 26, 21, 24, 27, 29, 31, 30, 29, 32, 28, 27, 27, 25, 26, 27, 30, 31, 34, 34, 36, 38, 38, 39, 39, 38, 35, 38, 39, 39, 37, 36, 33, 31, 33, 34, 30, 28, 29, 30, 31, 29, 32, 32, 32, 31, 34, 37, 29, 32, 33, 31, 32, 33, 33, 32, 30, 38, 34, 34};
 int k = 0;
@@ -51,7 +52,7 @@ void setup() {
   pinMode(button2, INPUT);
   pinMode(LED_pin, OUTPUT);
   pinMode(buzzer, OUTPUT); // Set buzzer - pin 9 as an output
-  OLED_init();
+  // OLED_init();
 
  
   Serial.println("Program starts");
@@ -66,7 +67,6 @@ void blink_LED(int LED_pin1, int Buzzer_pin, int duration){
 }
 
 void loop() {
-  
 
   j = 0;
   if (true){
@@ -75,61 +75,67 @@ void loop() {
     time1 = millis();
     
     if (digitalRead(button1)){
+    // if (true){
         time2 = millis();
-        int runNumbers = 0;
+              // int runNumbers = 0;
+              // loopTime = millis();
+              // while(runNumbers < NUM_BLINK_TIMES*2){
+              //   // Serial.println(loopTime);
+              //     if ((millis()-loopTime) > 500){
+              //         loopTime = millis();
+              //         digitalWrite(LED_pin, !digitalRead(LED_pin));
+              //         if (runNumbers % 2 == 0){
+              //             tone(buzzer, 700);
+              //             Serial.println("run 700");
+              //         } else if(runNumbers == NUM_BLINK_TIMES-1) {
+              //             tone(buzzer, 2000);
+              //             Serial.println("run 2000");
+              //             loopTime = loopTime - 200;
+              //         } else  {
+              //             noTone(buzzer);
+              //         }
+                      
+              //         runNumbers++;
+              //     }
+              // }
         
-        while(runNumbers < NUM_BLINK_TIMES*2){
-            if (millis()-loopTime > 500){
-                loopTime = millis();
-                digitalWrite(LED_pin, !digitalRead(LED_pin));
-                if (runNumbers % 2 == 0){
-                    tone(buzzer, 700);
-                } else if(runNumbers == NUM_BLINK_TIMES-1) {
-                    tone(buzzer, 2000);
-                    loopTime = loopTime - 200;
-                }
-                } else  {
-                    noTone(buzzer);
-                }
-                
-                runNumbers++;
-            }
+      while(millis()-time2 < 4400){
+        if (millis()-time2 < 500){
+          digitalWrite(LED_pin, HIGH);
+          tone(buzzer, 500);
+        } else if (millis()-time2 < 1000) {
+          digitalWrite(LED_pin, LOW);
+          noTone(buzzer);
+        } else if (millis()-time2 < 1500){
+          digitalWrite(LED_pin, HIGH);
+          tone(buzzer, 500);
+        } else if (millis()-time2 < 2000) {
+          digitalWrite(LED_pin, LOW);
+          noTone(buzzer);
+        } else if (millis()-time2 < 2500){
+          digitalWrite(LED_pin, HIGH);
+          tone(buzzer, 500);
+        } else if (millis()-time2 < 3000) {
+          digitalWrite(LED_pin, LOW);
+          noTone(buzzer);
+        } else if (millis()-time2 < 3500){
+          digitalWrite(LED_pin, HIGH);
+          tone(buzzer, 1800);
+        } else if (millis()-time2 < 4400) {
+          digitalWrite(LED_pin, LOW);
+          noTone(buzzer);
         }
-    //   while(millis()-time2 < 4500){
-    //     if (millis()-time2 < 500){
-    //       digitalWrite(LED_pin, HIGH);
-    //       tone(buzzer, 700);
-    //     } else if (millis()-time2 < 1000) {
-    //       digitalWrite(LED_pin, LOW);
-          
-    //     } else if (millis()-time2 < 1500){
-    //       digitalWrite(LED_pin, HIGH);
-    //       tone(buzzer, 700);
-    //     } else if (millis()-time2 < 2000) {
-    //       digitalWrite(LED_pin, LOW);
-    //       noTone(buzzer);
-    //     } else if (millis()-time2 < 2500){
-    //       digitalWrite(LED_pin, HIGH);
-    //       tone(buzzer, 700);
-    //     } else if (millis()-time2 < 3000) {
-    //       digitalWrite(LED_pin, LOW);
-    //       noTone(buzzer);
-    //     } else if (millis()-time2 < 3500){
-    //       digitalWrite(LED_pin, HIGH);
-    //       tone(buzzer, 2000);
-    //     } else if (millis()-time2 < 4400) {
-    //       digitalWrite(LED_pin, LOW);
-    //       noTone(buzzer);
-    //     }
-    //   }
+      }
       timeStart = millis();
 
-    
+    time1 = millis();
     while(j < NUM_LEDS){
       if (millis() > (time1 + array2[k])){
         time1 = millis();        
         clear_one_light(j-1);
-        run_one_light(j, CRGB::Green);
+        clear_one_light(j);
+        run_one_light(j, CRGB::White);
+        run_one_light((j+1), CRGB::Green);
         j++;
         k++;
       }
@@ -153,20 +159,10 @@ void loop() {
 
     }
     noTone(buzzer);
-
     }
+  }
     
-  
-  
-
-  
-
-
-  
-  
-
-
-  
+    
   // unsigned long CurrentTime = millis();
   // unsigned long ElapsedTime = CurrentTime - StartTime;
 

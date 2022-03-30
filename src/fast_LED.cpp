@@ -3,10 +3,10 @@
 #include <fast_LED.h>
 #include <interrupt_func.h>
 
-#define NUM_LEDS 20
+#define NUM_LEDS 120
 #define DATA_PIN 6
 #define LED_pin 13
-#define BRIGHTNES 25
+#define BRIGHTNES 255
 
 bool interupt_flag = false;
 int i = 0;
