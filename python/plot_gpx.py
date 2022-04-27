@@ -39,11 +39,12 @@ for i in range(len(route_df)):
             lon2=route_df.iloc[i]['longitude']
         ))
 
-route_df['elevation_diff'] = route_df['elevation'].diff()
-
 route_df['distance_diff'] = distances
+
+route_df['elevation_diff'] = route_df['elevation'].diff()
 route_df[route_df['elevation_diff'] >= 0]['elevation_diff'].sum()
 
+# todo: "skrå" distanser 
 
 route_df = route_df.fillna(0)
 
