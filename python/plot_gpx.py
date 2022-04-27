@@ -99,11 +99,12 @@ for i in range(len(output)-1):
 
 print(output)
 
-# plt.figure(figsize=(14, 8))
-# plt.plot(output['longitude'], output['latitude'], color='#101010')
-# plt.scatter(output['longitude'], output['latitude'], color='#101000')
+plt.figure(figsize=(14, 8))
+plt.plot(output['longitude'], output['latitude'], color='#101010')
+plt.scatter(output['longitude'], output['latitude'], color='#101000')
 
-# plt.title('Route latitude and longitude points', size=20)
+plt.title('Route latitude and longitude points', size=20)
 
-# plt.show()
+plt.show()
+
 

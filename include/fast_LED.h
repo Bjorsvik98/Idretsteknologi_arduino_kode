@@ -9,30 +9,35 @@
  * 
  * @param NUM_LED 
  */
-void strip_blink(int NUM_LED);
+void StripBlink(int NUM_LED);
 
 /**
  * @brief init LED strip
  * 
  */
-void fast_LED_init(void);
+void FastLedInit(void);
 
 /**
  * @brief run strip with interrupt
  * 
  */
-void run_strip(void);
+void RunStrip(void);
 
 /**
  * @brief blink led strip with constant speed and one run per run in main
  * 
  */
-void strip_blink_const_speed();
+void StripBlinkConstSpeed();
 
+void RunLights(int first, int last, CRGB color);
 
-void run_one_light(int number, CRGB color);
+void ClearLights(int first, int last);
 
-void clear_one_light(int number);
+void RunOneLight(int number, CRGB color);
+
+void ClearOneLight(int number);
+
+void runLedStrip(int loopCounter);
 
 
 

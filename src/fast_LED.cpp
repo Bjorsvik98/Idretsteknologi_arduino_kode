@@ -3,17 +3,25 @@
 #include <fast_LED.h>
 #include <interrupt_func.h>
 
-#define NUM_LEDS 120
-#define DATA_PIN 6
-#define LED_pin 13
-#define BRIGHTNES 255
+#define NumLeds 120
+#define LedStripPin 6
+#define Brightnes 255
 
 bool interupt_flag = false;
 int i = 0;
 
-CRGB leds[NUM_LEDS];
+CRGB leds[NumLeds];
 
-void strip_blink(int NUM_LED) {
+void runLedStrip(int loopCounter){
+    for (int i = 0; i < loopCounter-1;i++){
+        leds[i] = CRGB::Black;
+    }
+    leds[loopCounter-1] = CRGB::Red;
+    leds[loopCounter] = CRGB::Green;
+    FastLED.show();
+}
+
+void StripBlink(int NUM_LED) {
     for (int i = 0; i < NUM_LED; i++){
         leds[i] = CRGB(255,0,0);
         // leds[i-1] = CRGB::Red;
@@ -28,17 +36,32 @@ void strip_blink(int NUM_LED) {
     }
 }
 
-void run_one_light(int number, CRGB color){
+void RunOneLight(int number, CRGB color){
     leds[number] = color;
     FastLED.show();
 }
-void clear_one_light(int number){
+void RunLights(int first, int last, CRGB color){
+    for (int i = first; i <= last; i++){
+        leds[i] = color;
+        FastLED.show();
+    }
+}
+
+void ClearOneLight(int number){
     leds[number] = CRGB::Black;
     FastLED.show();
 }
+void ClearLights(int first, int last){
+    for (int i = first; i <= last; i++){
+        leds[i] = CRGB::Black;
+        FastLED.show();
+    }
+}
 
 
-void strip_blink_const_speed(){
+
+
+void StripBlinkConstSpeed(){
     leds[i] = CRGB::Purple;
     leds[i-1] = CRGB::Blue;
     leds[i+1] = CRGB::Red;
@@ -50,24 +73,24 @@ void strip_blink_const_speed(){
     FastLED.show();
     i++;
 
-    if (i == (NUM_LEDS - 1)){
+    if (i == (NumLeds - 1)){
         i = 0;
     }
 }
 
-void fast_LED_init(void){
-    FastLED.addLeds<WS2812B, DATA_PIN, GRB>(leds, NUM_LEDS);
-    FastLED.setBrightness(BRIGHTNES);
+void FastLedInit(void){
+    FastLED.addLeds<WS2812B, LedStripPin, GRB>(leds, NumLeds);
+    FastLED.setBrightness(Brightnes);
     FastLED.setMaxPowerInVoltsAndMilliamps(5, 500);
 }
 
-void run_strip(void){
+void RunStrip(void){
     if (interupt_flag == true) {
         interupt_flag = false;
         leds[i] = CRGB::Black;
         leds[i-1] = CRGB::Black;
 
-        if (i == (NUM_LEDS - 1)){ 
+        if (i == (NumLeds - 1)){ 
             i = 0; 
         }
         i++;
@@ -84,7 +107,7 @@ ISR(TIMER1_COMPA_vect)
 {
     interupt_flag = true;
     // leds[i] = CRGB::Black;
-    // if (i == (NUM_LEDS - 1)){ i = 0; }
+    // if (i == (NumLeds - 1)){ i = 0; }
 
     // i++;
     // leds[i] = CRGB::Red;
