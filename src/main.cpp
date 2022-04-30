@@ -18,11 +18,12 @@
 #define StopButton 2
 #define BuzzerPin 9
 
-#define NumLeds 15
-#define NumBlinkTimes 1
+#define NumLeds 18
+#define NumBlinkTimes 3
 #define Brigthnes 255
-#define NumLedsUsed 3
 
+// To make the strip run at variable speed, the time between each led is written in an array like this. If it is shorter than the number of leds it loop back to the first one again.
+// To get the strip run at different speeds its needed different code. A start at that is implemented in the python folder.
 int delays[] = {100,100};
 // int delays[] = {400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200};
 
@@ -33,15 +34,14 @@ enum states {
     end,
     idle,
     reset,
-    initialize,
 };
 
-states state = initialize;
+states state = reset;
 int size = sizeof(delays) / sizeof(int);
 int lightCounter = 0; 
 int arrayIndex = 0;
 int loopCounter = 0;
-int buzzerFreq1 = 700; //Hz
+int buzzerFreq1 = 500; //Hz
 int buzzerFreq2 = 2000; //Hz
 
 uint32_t buzzerOnTime = 500; //ms
@@ -55,10 +55,6 @@ bool startButtonFlag;
 bool stopButtonFlag;
 bool makeSound;
 
-// CRGB leds[NumLeds];
-
-
-
 
 void setup() {
     Serial.begin(9600);
@@ -69,34 +65,29 @@ void setup() {
     pinMode(BoardLedPin, OUTPUT);
     pinMode(BuzzerPin, OUTPUT); // Set buzzer - pin 9 as an output
 
-    // OLED_init();
-
-
+    // An Oled was thought to be used to display the time, but the last itteration of the code crashes during initialization of it
+    // OLED_init(); 
 
     Serial.println("Program starts");
-    digitalWrite(BoardLedPin, HIGH);
+    // digitalWrite(BoardLedPin, HIGH);
     ClearLights(0,64);
     
 }
 
 void loop() {
-    
+    // The buttons is read ever time the loop runs
     if (digitalRead(StartButton) && startButtonFlag == false){
         startButtonFlag = true;        
     }
     if (digitalRead(StopButton)){
-        Serial.println("Stop button is pressed");
         stopButtonFlag = true;
         StopButtonPressedTime = millis();
     }
 
     switch (state) {
-        case initialize:
-            state = reset;
-        break;
         case start:          
+            // Make the wait for start signal with the buzzer
             if ((millis() - buzzerTimer) > buzzerOnTime) {
-                
                 buzzerTimer = millis();
                 if (makeSound) {
                     digitalWrite(LedPin, HIGH);
@@ -109,6 +100,7 @@ void loop() {
                 }
                 loopCounter++;
             }
+            // When it should start the buzzer change freq to indicate start signal.
             if (loopCounter > NumBlinkTimes*2){
                 digitalWrite(LedPin, HIGH);
                 tone(BuzzerPin, buzzerFreq2);   
@@ -116,6 +108,7 @@ void loop() {
                 loopCounter = 0;             
                 makeSound = false;
                 state = run;
+                startButtonFlag = false;
             }
 
         break;
@@ -123,49 +116,41 @@ void loop() {
             if (millis() > (lastRunTime + delays[arrayIndex])) {
                 arrayIndex++;
                 lastRunTime = millis();
-                // ClearLights(loopCounter-1, loopCounter+1);
-                // RunLights(loopCounter, loopCounter+3, CRGB::White);
-
-                // for (int i = loopCounter; i <= NumLedsUsed; i++) {
-                //     leds[i] = CRGB::White;
-                // }
+                
                 runLedStrip(loopCounter);
                 loopCounter++;
             }
             if (arrayIndex == size){
                 arrayIndex = 0;
             }
-            if (((millis() - buzzerTimer) > buzzerOnTime) && !makeSound) {
+            // The buzzer turn off when it has beeped for long enough
+            if (((millis() - buzzerTimer) > (buzzerOnTime + 50)) && !makeSound) {
                 digitalWrite(LedPin, LOW);
                 noTone(BuzzerPin);
                 makeSound = true;
             }
             if (loopCounter == NumLeds) {
                 state = end;
-                startButtonFlag = false;
             }
         break;
         case end:
             if (millis() > (lastRunTime + delays[arrayIndex])) {
                 ClearLights(0, NumLeds);
             }
-            if (stopButtonFlag) {
-                // oled disp the time 
-                Serial.print("Time passed is ");
-                Serial.print(StopButtonPressedTime - startTime);
-                Serial.println(" ms");
-                // OLED_disp_time(StopButtonPressedTime - startTime);
-
-            }
 
             if (stopButtonFlag == true && (millis() > (lastRunTime + delays[arrayIndex]))) { //wait untill both cases is done
                 state = reset;
                 Serial.println("StopButton");
+                Serial.print("Time passed is ");
+                Serial.print(StopButtonPressedTime - startTime);
+                Serial.println(" ms");
             }
-            if (startButtonFlag) {
+            if (startButtonFlag) { // This will restart theexecution, and are mostly there for debuggin and testing.
                 state = reset;
                 Serial.println("StartButton");
-
+                // Serial.print("Time passed is ");
+                // Serial.print(StopButtonPressedTime - startTime);
+                // Serial.println(" ms");
             }
         break;
         case idle:
