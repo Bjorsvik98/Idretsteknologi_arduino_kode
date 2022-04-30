@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include <FastLED.h>
 #include <Run_LED_strip.h>
-#include <interrupt_func.h>
 
 #define NumLeds 120
 #define LedStripPin 6

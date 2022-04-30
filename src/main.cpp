@@ -1,11 +1,8 @@
 #include <Arduino.h>
 #include <FastLED.h>
-// #include <OLED.h>
-// #include <interrupt_func.h>
 #include <Run_LED_strip.h>
-// #include <Button.h>
-// #include <button_lib.h>
 
+// #include <OLED.h>
 // #include <SPI.h>
 // #include <Wire.h>
 // #include <Adafruit_GFX.h>
@@ -62,7 +59,7 @@ void setup() {
     pinMode(StartButton, INPUT);
     pinMode(StopButton, INPUT);
     pinMode(LedPin, OUTPUT);
-    pinMode(BoardLedPin, OUTPUT);
+    pinMode(BoardLedPin, OUTPUT); 
     pinMode(BuzzerPin, OUTPUT); // Set buzzer - pin 9 as an output
 
     // An Oled was thought to be used to display the time, but the last itteration of the code crashes during initialization of it
