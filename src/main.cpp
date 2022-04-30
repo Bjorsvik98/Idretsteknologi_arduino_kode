@@ -1,15 +1,15 @@
 #include <Arduino.h>
 #include <FastLED.h>
-#include <OLED.h>
-#include <interrupt_func.h>
-#include <fast_LED.h>
-#include <Button.h>
-#include <button_lib.h>
+// #include <OLED.h>
+// #include <interrupt_func.h>
+#include <Run_LED_strip.h>
+// #include <Button.h>
+// #include <button_lib.h>
 
-#include <SPI.h>
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
+// #include <SPI.h>
+// #include <Wire.h>
+// #include <Adafruit_GFX.h>
+// #include <Adafruit_SSD1306.h>
 
 #define LedPin 3
 #define LedStripPin 6
@@ -18,7 +18,7 @@
 #define StopButton 2
 #define BuzzerPin 9
 
-#define NumLeds 18
+#define NumLeds 20
 #define NumBlinkTimes 3
 #define Brigthnes 255
 
