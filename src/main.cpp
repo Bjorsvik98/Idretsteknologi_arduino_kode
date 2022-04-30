@@ -69,7 +69,6 @@ void setup() {
     // OLED_init(); 
 
     Serial.println("Program starts");
-    // digitalWrite(BoardLedPin, HIGH);
     ClearLights(0,64);
     
 }
