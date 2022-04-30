@@ -148,9 +148,7 @@ void loop() {
             if (startButtonFlag) { // This will restart theexecution, and are mostly there for debuggin and testing.
                 state = reset;
                 Serial.println("StartButton");
-                // Serial.print("Time passed is ");
-                // Serial.print(StopButtonPressedTime - startTime);
-                // Serial.println(" ms");
+
             }
         break;
         case idle:
